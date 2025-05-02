@@ -1,10 +1,5 @@
-# Health Check Monitoring Project
-
-This project includes features for checking the database connection’s health.
-
-## Introduction for the project
-
-The Database Health Check is a Spring Boot application designed to perform database connectivity. It includes one main controllers: `HealthController` for verifying database connectivity.
+# Spring Boot Project
+This repository contains the backend project for the CSYE6225 Cloud Computing course.
 
 ## Prerequisites for project
 
@@ -17,13 +12,37 @@ Before building and deploying the application locally, ensure you have the follo
 
 The `HealthController` It manages health check requests to confirm the database connection status. It offers endpoint for verifying the database connection, handling unsupported HTTP methods, and managing unknown URLs
 
+# Features
+### `GET /healthz`
 
-### Endpoints for app
+This endpoint checks the application's connectivity to the database and returns an appropriate HTTP status code based on the result.
 
-Here's a rephrased version:
+- **200 OK** – if the database connection is successful.
+- **503 Service Unavailable** – if the database connection fails.
+- **405 Method Not Allowed** – for unsupported HTTP methods.
+- **400 Bad Request** – if any payload is provided in the request.
 
-- `/healthz`: Checks the database connection and manages specific conditions.
-- `/healthz` (POST, PUT, PATCH, DELETE, HEAD, OPTIONS, TRACE): Manages method-not-allowed responses for certain HTTP methods.
+---
+
+## User Management Endpoints
+
+### `POST /v1/user`
+- Creates a new user account.
+
+### `GET /v1/user/self`
+- Retrieves authenticated user's information.
+
+---
+
+## Security & Performance Features
+
+### Secure Password Handling
+- Passwords are hashed using **bcrypt** before being stored in the database, ensuring secure authentication.
+
+### No Caching
+- API responses include the following headers to prevent caching:
+  - `Cache-Control: no-cache`
+  - `Pragma: no-cache`
 
 ## Configuration
 
@@ -39,9 +58,6 @@ curl -vvvv http://localhost:8080/healthz
 ### 405 Method Not Allowed
 curl -vvvv -XPUT http://localhost:8080/healthz
 
-## Usage
-
-To run the project locally, follow below steps:
 
 1. Clone the repository.
 2. Configure the `application.properties` file with your database settings.
